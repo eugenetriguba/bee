@@ -7,6 +7,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+
 	"bee/lexer"
 	"bee/token"
 )

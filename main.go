@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/user"
+
 	"bee/repl"
 )
 
@@ -17,4 +18,3 @@ func main() {
 	fmt.Printf("Feel free to type in commands. Enter 'exit' to leave the repl\n")
 	repl.Start(os.Stdin, os.Stdout)
 }
-
