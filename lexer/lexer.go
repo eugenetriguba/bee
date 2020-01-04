@@ -30,13 +30,25 @@ func (lexer *Lexer) NextToken() token.Token {
 
 	switch lexer.ch {
 	case '=':
-		tok = newToken(token.ASSIGN, lexer.ch)
+		if lexer.peekChar() == '=' {
+			ch := lexer.ch
+			lexer.readChar()
+			tok = token.Token{Type: token.EQ, Literal: string(ch) + string(lexer.ch)}
+		} else {
+			tok = newToken(token.ASSIGN, lexer.ch)
+		}
 	case '+':
 		tok = newToken(token.PLUS, lexer.ch)
 	case '-':
 		tok = newToken(token.MINUS, lexer.ch)
 	case '!':
-		tok = newToken(token.BANG, lexer.ch)
+		if lexer.peekChar() == '=' {
+			ch := lexer.ch
+			lexer.readChar()
+			tok = token.Token{Type: token.NOT_EQ, Literal: string(ch) + string(lexer.ch)}
+		} else {
+			tok = newToken(token.BANG, lexer.ch)
+		}
 	case '/':
 		tok = newToken(token.SLASH, lexer.ch)
 	case '*':
@@ -110,6 +122,16 @@ func (lexer *Lexer) readChar() {
 	}
 	lexer.position = lexer.readPosition
 	lexer.readPosition += 1
+}
+
+// peekChar allows us to look at the next char
+// without incrementing any input positions.
+func (lexer *Lexer) peekChar() byte {
+	if lexer.readPosition >= len(lexer.input) {
+		return 0
+	} else {
+		return lexer.input[lexer.readPosition]
+	}
 }
 
 // readNumber reads in the next integer.
