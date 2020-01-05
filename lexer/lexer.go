@@ -4,6 +4,7 @@ import (
 	"bee/token"
 )
 
+// Lexer is used to tokenize the program.
 type Lexer struct {
 	input        string
 	position     int  // Current position in input (points to current char)
