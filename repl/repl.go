@@ -1,6 +1,4 @@
-// repl is a real-eval-print loop. For the time being, it only
-// prints out the items it has tokenized, but it does not parse
-// or evaluate yet.
+// repl is a real-eval-print loop that only supports tokenizing right now.
 package repl
 
 import (

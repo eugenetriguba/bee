@@ -4,29 +4,45 @@ import (
 	"bee/ast"
 	"bee/lexer"
 	"bee/token"
+	"fmt"
 )
 
 // Parser is used to parse the program and
 // construct the AST.
 type Parser struct {
-	lexer *lexer.Lexer
-
+	lexer        *lexer.Lexer
+	errors       []string
 	currentToken token.Token
 	peekToken    token.Token
 }
 
-// New creates a new Parser by settings its
+// New creates a new Parser by setting its
 // lexer and advancing the positions until
 // currentToken points to the first token in
 // the program and peekToken points to the second.
 func New(lexer *lexer.Lexer) *Parser {
-	parser := &Parser{lexer: lexer}
+	parser := &Parser{
+		lexer:  lexer,
+		errors: []string{},
+	}
 
 	// Read two tokens so currentToken and peekToken are set.
 	parser.nextToken()
 	parser.nextToken()
 
 	return parser
+}
+
+// Retrieves the errors that occurred during parsing
+func (parser *Parser) Errors() []string {
+	return parser.errors
+}
+
+func (parser *Parser) peekError(tok token.TokenType) {
+	msg := fmt.Sprintf("expected next token to be %s, got %s instead",
+			tok, parser.peekToken.Type)
+
+	parser.errors = append(parser.errors, msg)
 }
 
 // nextToken sets the current token to the
@@ -106,7 +122,8 @@ func (parser *Parser) expectPeek(tok token.TokenType) bool {
 	if parser.peekTokenIs(tok) {
 		parser.nextToken()
 		return true
-	} else {
-		return false
 	}
+
+	parser.peekError(tok)
+	return false
 }
