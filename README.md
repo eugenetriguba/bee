@@ -7,7 +7,6 @@
 [![codebeat badge](https://codebeat.co/badges/5405b9cd-2a4b-4dab-afe4-17a8866035b9)](https://codebeat.co/projects/github-com-eugenetriguba-bee-master)
 
 Bee is an interpreted programming language with a JavaScript-like syntax.
-The interpreter is written as a tree-walking interpreter.
 
 It looks like this.
 
@@ -20,7 +19,14 @@ let add = fn(x, y) {
 };
 
 let result = add(five, ten);
+
+let trueOrFalse = if (10 > 5) { true } else { false };
+
+(fn(x) { return x }(5) + 10 ) * 10;
 ```
+
+The language only has two statements: `let` and `return`.
+Everything else is considered a expression.
 
 # REPL
 
