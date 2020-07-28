@@ -33,14 +33,14 @@ func New(lexer *lexer.Lexer) *Parser {
 	return parser
 }
 
-// Retrieves the errors that occurred during parsing
+// Errors retrieves the errors that occurred during parsing.
 func (parser *Parser) Errors() []string {
 	return parser.errors
 }
 
 func (parser *Parser) peekError(tok token.TokenType) {
 	msg := fmt.Sprintf("expected next token to be %s, got %s instead",
-			tok, parser.peekToken.Type)
+		tok, parser.peekToken.Type)
 
 	parser.errors = append(parser.errors, msg)
 }
