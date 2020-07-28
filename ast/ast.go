@@ -51,6 +51,18 @@ func (ls *LetStatement) statementNode() {}
 // TokenLiteral retrieves the literal token (the string representation).
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
 
+// ReturnStatement represents a `return <expression>`
+// statement.
+type ReturnStatement struct {
+	Token       token.Token // token.RETURN token
+	ReturnValue Expression
+}
+
+func (rs *ReturnStatement) statementNode() {}
+
+// TokenLiteral retrieves the literal token (the string representation).
+func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }
+
 // Identifier represents a identifier in Bee
 // such as `let x = 5;`, where `x` is the identifier.
 //
